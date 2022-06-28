@@ -25,7 +25,7 @@ class ViewController: UIViewController {
   }
   
   private func configureHierarchy() {
-    collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+    collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: creatTwoColumnLayout())
     collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     collectionView.backgroundColor = .systemBackground
     collectionView.register(ListCell.self, forCellWithReuseIdentifier: ListCell.reuseIdentifier)
@@ -38,6 +38,36 @@ class ViewController: UIViewController {
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
     
     let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(44))
+    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+    
+    let section = NSCollectionLayoutSection(group: group)
+    
+    let layout = UICollectionViewCompositionalLayout(section: section)
+    
+    return layout
+  }
+  
+  private func createGridLayout() -> UICollectionViewLayout {
+    
+    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2), heightDimension: .fractionalHeight(1))
+    let item = NSCollectionLayoutItem(layoutSize: itemSize)
+    
+    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.2))
+    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+    
+    let section = NSCollectionLayoutSection(group: group)
+    
+    let layout = UICollectionViewCompositionalLayout(section: section)
+    
+    return layout
+  }
+  
+  private func creatTwoColumnLayout() -> UICollectionViewLayout {
+    
+    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
+    let item = NSCollectionLayoutItem(layoutSize: itemSize)
+    
+    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44))
     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
     
     let section = NSCollectionLayoutSection(group: group)
